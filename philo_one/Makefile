@@ -1,0 +1,22 @@
+NAME = a.out
+SRC = main.c utils/utils.c parser.c
+INC = philo.h
+
+CFLAGS = -Wall -Wextra -Werror -g
+
+all: $(NAME)
+
+$(NAME): $(SRC) $(INC)
+	make -C ftlib
+	gcc $(CFLAGS) $(SRC) ftlib/ftlib.a -o $(NAME)
+
+clean:
+	make fclean -C libft
+
+flean:
+	make fclean -C ftlib
+	rm -rf $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
