@@ -7,8 +7,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 all: $(NAME)
 
 $(NAME): $(SRC) $(INC)
-	make -C ftlib
-	gcc $(CFLAGS) $(SRC) ftlib/ftlib.a -o $(NAME)
+	make -C ../ftlib
+	gcc $(CFLAGS) $(SRC) ../ftlib/ftlib.a -o $(NAME)
 
 clean:
 	make fclean -C libft

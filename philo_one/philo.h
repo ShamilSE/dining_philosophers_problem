@@ -10,9 +10,10 @@
 #define KWHT  "\x1B[37m"
 #define RESET "\x1B[0m"
 
-#include "ftlib/ftlib.h"
+#include "../ftlib/ftlib.h"
 #include <stdio.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 typedef struct	s_data {
 	size_t		philo_num;
@@ -21,6 +22,11 @@ typedef struct	s_data {
 	size_t		time_to_sleep;
 	size_t		hungry;
 }				t_data;
+
+typedef struct	s_philosopher {
+	size_t		fork1;
+	size_t		fork2;
+}				t_philosopher;
 
 int		is_args_digit(char** av);
 void	ft_error(char* msg);
