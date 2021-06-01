@@ -2,34 +2,51 @@
 
 pthread_mutex_t	mutex;
 
-void*	lifecycle(void*	string)
+void*	lifecycle(void*	philosopher)
 {
-	for (size_t i = 0; i < 20; i++) {
-		printf("%s\n", string);
-		usleep(10000);
-	}
+	(void)philosopher;
 	return (NULL);
 }
 
-void	init_data(t_data* data)
+void	multithread(t_data* data)
 {
-	char**			pthread;
+	// for (size_t i = 0; i < 20; i++) {
+	// 	printf("%s\n", string);
+	// 	usleep(10000);
+	// }
+	size_t	index;
+
+	index = 0;
+	while (data->general->philo_num > index)
+	{
+		pthread_create(&data->philo[index]->thread, NULL, lifecycle, (void*)data->philo[index]);
+		pthread_join(data->philo[index]->thread, NULL);
+		index++;
+	}
+}
+
+t_data*	init_data(char** av)
+{
+	// pthread_t thread1, thread2;
+	t_data*		data;
+	t_general*	general;
 	size_t			index;
 	t_philosopher**	philo;
 
-	pthread = malloc(sizeof(char**));
-	philo = malloc(sizeof(t_philosopher**));
+	data = malloc(sizeof(t_data));
+	general = parser(av);
+	philo = malloc(sizeof(t_philosopher*));
 	index = 0;
-	while (index < data->philo_num)
+	while (index < general->philo_num)
 	{
 		philo[index] = malloc(sizeof(t_philosopher*));
 		philo[index]->fork1 = index;
-		if (data->philo_num == index + 1)
+		if (general->philo_num == index + 1)
 			philo[index]->fork2 = 0;
 		else
 			philo[index]->fork2 = index + 1;
 		// printf("philo: %zu\nfork1 : %zu\nfork2: %zu\n------------------\n", index, philo[index]->fork1, philo[index]->fork2);
-		// pthread_create(&thread1, NULL, lifecycle, (void*)string1);
+		// pthread_create(&thread1, NULL, lifecycle, (void*)philo[index]);
 		index++;
 	}
 	pthread_mutex_init(&mutex, NULL);
@@ -39,20 +56,20 @@ void	init_data(t_data* data)
 	// pthread_join(thread2, NULL);
 
 	// phtread_detach(); - when you dont give a duck about thread clean
-	
-	(void)data;
+	data->general = general;
+	data->philo = philo;
+	return (data);
 }
 
 int	main(int ac, char** av)
 {
-	t_data*	data;
 	// struct	timeval tv;
+	t_data*	data;
 
 	if (ac != 6)
 		ft_error("invalid argument count\n");
-	data = parser(av);
-	init_data(data);
-	(void)data;
+	data = init_data(av);
+	multithread(data);
 	// while (1) {
 	// 	usleep(1000000);
 	// 	gettimeofday(&tv, NULL);

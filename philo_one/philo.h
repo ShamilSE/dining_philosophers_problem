@@ -15,21 +15,27 @@
 #include <pthread.h>
 #include <sys/time.h>
 
-typedef struct	s_data {
+typedef struct	s_general {
 	size_t		philo_num;
 	size_t		time_to_die;
 	size_t		time_to_eat;
 	size_t		time_to_sleep;
 	size_t		hungry;
-}				t_data;
+}				t_general;
 
 typedef struct	s_philosopher {
 	size_t		fork1;
 	size_t		fork2;
+	pthread_t	thread;
 }				t_philosopher;
 
-int		is_args_digit(char** av);
-void	ft_error(char* msg);
-t_data*	parser(char** av);
+typedef struct	s_data {
+	t_general*		general;
+	t_philosopher**	philo;
+}				t_data;
+
+int			is_args_digit(char** av);
+void		ft_error(char* msg);
+t_general*	parser(char** av);
 
 #endif
