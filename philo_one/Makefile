@@ -11,10 +11,10 @@ $(NAME): $(SRC) $(INC)
 	gcc $(CFLAGS) $(SRC) ../ftlib/ftlib.a -o $(NAME)
 
 clean:
-	make fclean -C libft
+	make clean -C ../libft
 
-flean:
-	make fclean -C ftlib
+fclean:
+	make fclean -C ../ftlib
 	rm -rf $(NAME)
 
 re: fclean all
