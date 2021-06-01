@@ -1,8 +1,25 @@
 #include "philo.h"
 
-void	eating(t_philosopher* philo)
+void	eating(t_data* data)
 {
-	printf("%zu: eating\n", philo->fork1);
+	// pthread_mutex_lock(&mutex);
+	// pthread_mutex_unlock(&mutex);
+	// size_t	i, ii;
+
+	// i = 0;
+	// while (data->philo_num > i)
+	// {
+	// 	ii = 0;
+	// 	while (data->philo_num > ii)
+	// 	{
+	// 		if (data->philo[i]->fork1 == data->forks[ii] || 
+	// 			data->philo[i]->fork2 == data->forks[ii])
+
+	// 		ii++;
+	// 	}
+	// 	i++;
+	// }
+	printf("%zu: eating\n", data->philo[data->index]->fork1);
 	// usleep(2000000);
 }
 
@@ -16,12 +33,9 @@ void	thinking()
 	printf("thinking\n");
 }
 
-void*	lifecycle(void*	philo)
+void*	lifecycle(void*	data)
 {
-	philo = (t_philosopher*)philo;
-	eating(philo);
-	// pthread_mutex_lock(&mutex);
-	// pthread_mutex_unlock(&mutex);
+	eating(data);
 	// sleeping(philosopher);
 	// thinking(philosopher);
 	return (NULL);

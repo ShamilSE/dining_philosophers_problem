@@ -23,21 +23,23 @@ typedef struct	s_general {
 	size_t		hungry;
 }				t_general;
 
-typedef struct	s_philosopher {
-	size_t		fork1;
-	size_t		fork2;
-	pthread_t	thread;
-}				t_philosopher;
+typedef struct		s_philosopher {
+	pthread_mutex_t	left_fork;
+	pthread_mutex_t	right_fork;
+	pthread_t		thread;
+}					t_philosopher;
 
 typedef struct	s_data {
 	t_general*		general;
 	t_philosopher**	philo;
+	size_t			index;
 }				t_data;
 
 //parse
 int			is_args_digit(char** av);
 void		ft_error(char* msg);
 t_general*	parser(char** av);
+t_data*		init_data(char** av);
 //logic
 void*		lifecycle(void*	philosopher);
 
