@@ -34,8 +34,11 @@ typedef struct	s_data {
 	t_philosopher**	philo;
 }				t_data;
 
+//parse
 int			is_args_digit(char** av);
 void		ft_error(char* msg);
 t_general*	parser(char** av);
+//logic
+void*		lifecycle(void*	philosopher);
 
 #endif
