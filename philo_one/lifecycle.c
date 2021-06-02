@@ -19,7 +19,7 @@ void	eating(t_data* data)
 	// 	}
 	// 	i++;
 	// }
-	printf("%zu: eating\n", data->philo[data->index]->fork1);
+	printf("%zu: eating\n", data->philo[data->index]->left_fork);
 	// usleep(2000000);
 }
 

@@ -24,8 +24,8 @@ typedef struct	s_general {
 }				t_general;
 
 typedef struct		s_philosopher {
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	right_fork;
+	size_t			left_fork;
+	size_t			right_fork;
 	pthread_t		thread;
 }					t_philosopher;
 

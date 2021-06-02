@@ -14,11 +14,11 @@ t_data*	init_data(char** av)
 	while (index < general->philo_num)
 	{
 		philo[index] = malloc(sizeof(t_philosopher));
-		philo[index]->fork1 = index;
+		philo[index]->left_fork = index;
 		if (general->philo_num == index + 1)
-			philo[index]->fork2 = 0;
+			philo[index]->right_fork = 0;
 		else
-			philo[index]->fork2 = index + 1;
+			philo[index]->right_fork = index + 1;
 		index++;
 	}
 	data->general = general;

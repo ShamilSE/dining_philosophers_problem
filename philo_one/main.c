@@ -7,7 +7,7 @@ void	multithread(t_data* data)
 	// for (size_t i = 0; i < 4; i++) {
 	// 	printf("philo: %zu\nfork1 : %zu\nfork2: %zu\n------------------\n", i, data->philo[i]->fork1, data->philo[i]->fork2);
 	// }
-	pthread_mutex_init(&mutex, NULL);
+	// pthread_mutex_init(&mutex, NULL);
 	index = 0;
 	while (data->general->philo_num > index)
 	{
