@@ -29,11 +29,13 @@ typedef struct		s_philosopher {
 	pthread_t		thread;
 }					t_philosopher;
 
-typedef struct	s_data {
-	t_general*		general;
-	t_philosopher**	philo;
-	size_t			index;
-}				t_data;
+typedef struct			s_data {
+	t_general*			general;
+	t_philosopher**		philo;
+	size_t				index;
+	pthread_mutex_t*	mutex;
+	int					start_time;
+}						t_data;
 
 //parse
 int			is_args_digit(char** av);
@@ -42,5 +44,7 @@ t_general*	parser(char** av);
 t_data*		init_data(char** av);
 //logic
 void*		lifecycle(void*	philosopher);
+//other
+int			get_current_time(void);
 
 #endif

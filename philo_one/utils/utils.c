@@ -28,3 +28,11 @@ void	ft_error(char* msg)
 	ft_putstr_fd(msg, 0);
 	exit(0);
 }
+
+int		get_current_time(void)
+{
+	struct timeval		tv;
+
+	gettimeofday(&tv, NULL); 
+	return (tv.tv_usec / 1000);
+}
