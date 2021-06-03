@@ -25,7 +25,8 @@ typedef struct	s_general {
 }				t_general;
 
 typedef struct		s_philosopher {
-	size_t			ate;
+	size_t			ate_count;
+	long			ate_last_time;
 	pthread_mutex_t*			left_fork;
 	pthread_mutex_t*			right_fork;
 	pthread_t		thread;
@@ -39,6 +40,7 @@ typedef struct			s_data {
 	t_general*			general;
 	t_philosopher**		philo;
 	pthread_mutex_t*	mutex;
+	pthread_mutex_t		monitoring;
 }						t_data;
 
 //parse

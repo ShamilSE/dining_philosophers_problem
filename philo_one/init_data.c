@@ -17,7 +17,8 @@ t_data*	init_data(char** av)
 		philo[index] = malloc(sizeof(t_philosopher));
 		pthread_mutex_init(&data->mutex[index], NULL);
 		philo[index]->status = 0;
-		philo[index]->ate = 0;
+		philo[index]->ate_count = 0;
+		philo[index]->ate_last_time = get_current_time(0);
 		philo[index]->left_fork = &data->mutex[index];
 		philo[index]->id = index + 1;
 		if (general->philo_num == index + 1)
