@@ -17,10 +17,10 @@
 
 typedef struct	s_general {
 	size_t		philo_num;
-	size_t		time_to_die;
+	long		time_to_die;
 	size_t		time_to_eat;
-	size_t		time_to_sleep;
-	size_t		hungry;
+	long		time_to_sleep;
+	long		hungry;
 	pthread_mutex_t	talking;
 }				t_general;
 
@@ -40,7 +40,7 @@ typedef struct			s_data {
 	t_general*			general;
 	t_philosopher**		philo;
 	pthread_mutex_t*	mutex;
-	pthread_mutex_t		monitoring;
+	pthread_t			monitoring;
 }						t_data;
 
 //parse
@@ -50,6 +50,7 @@ t_general*	parser(char** av);
 t_data*		init_data(char** av);
 //logic
 void*		lifecycle(void*	philosopher);
+void*		monitoring(void* data);
 //other
 long		get_current_time(long start_time);
 

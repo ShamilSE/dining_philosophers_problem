@@ -13,7 +13,7 @@ void	eating_odd(t_philosopher* philo)
 	printf("%ld %zu is eating\n", get_current_time(philo->start_time), philo->id);
 	// philo->status++;
 	philo->ate_count++;
-	// philo->ate_last_time = get_current_time(0);
+	philo->ate_last_time = get_current_time(0);
 	usleep(philo->general->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -32,7 +32,7 @@ void	eating(t_philosopher* philo)
 	printf("%ld %zu is eating\n", get_current_time(philo->start_time), philo->id);
 	// philo->status++;
 	philo->ate_count++;
-	// philo->ate_last_time = get_current_time(0);
+	philo->ate_last_time = get_current_time(0);
 	usleep(philo->general->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);

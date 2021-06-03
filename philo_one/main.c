@@ -13,14 +13,14 @@ void	multithread(t_data* data)
 			usleep(100);
 		index++;
 	}
-	// pthread_create(&data->monitoring, NULL, monitoring, (void*)data;
+	pthread_create(&data->monitoring, NULL, monitoring, (void*)data);
 	index = 0;
 	while (data->general->philo_num > index)
 	{
 		pthread_join(data->philo[index]->thread, NULL);
 		index++;
 	}
-	// pthread_detach(data->monitoring);
+	pthread_detach(data->monitoring);
 }
 
 int	main(int ac, char** av)
