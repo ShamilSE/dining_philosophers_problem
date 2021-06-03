@@ -21,6 +21,7 @@ typedef struct	s_general {
 	size_t		time_to_eat;
 	size_t		time_to_sleep;
 	size_t		hungry;
+	pthread_mutex_t	talking;
 }				t_general;
 
 typedef struct		s_philosopher {
@@ -29,7 +30,7 @@ typedef struct		s_philosopher {
 	pthread_mutex_t*			right_fork;
 	pthread_t		thread;
 	size_t			status;
-	int				start_time;
+	long			start_time;
 	size_t			id;
 	t_general*		general;
 }					t_philosopher;
@@ -48,6 +49,6 @@ t_data*		init_data(char** av);
 //logic
 void*		lifecycle(void*	philosopher);
 //other
-int			get_current_time(void);
+long		get_current_time(long start_time);
 
 #endif

@@ -29,10 +29,10 @@ void	ft_error(char* msg)
 	exit(0);
 }
 
-int		get_current_time(void)
+long	get_current_time(long start_time)
 {
 	struct timeval		tv;
 
 	gettimeofday(&tv, NULL); 
-	return (tv.tv_usec / 1000);
+	return ((tv.tv_sec * 1000 + tv.tv_usec / 1000) - start_time);
 }

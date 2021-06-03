@@ -8,9 +8,10 @@ void	multithread(t_data* data)
 	index = 0;
 	while (data->general->philo_num > index)
 	{
+		data->philo[index]->start_time = get_current_time(0);
 		pthread_create(&data->philo[index]->thread, NULL, lifecycle, (void*)data->philo[index]);
-		// if (data->philo[index]->id % 2 != 0)
-		// 	usleep(100);
+		if (index == 0)
+			usleep(100);
 		index++;
 	}
 	index = 0;
@@ -31,6 +32,6 @@ int	main(int ac, char** av)
 		av[5] = NULL;
 	data = init_data(av);
 	multithread(data);
-	// free(data);
+	free(data);
 	return (0);
 }
