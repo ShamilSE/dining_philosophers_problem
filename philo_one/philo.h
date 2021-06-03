@@ -24,17 +24,20 @@ typedef struct	s_general {
 }				t_general;
 
 typedef struct		s_philosopher {
-	size_t			left_fork;
-	size_t			right_fork;
+	size_t			ate;
+	pthread_mutex_t*			left_fork;
+	pthread_mutex_t*			right_fork;
 	pthread_t		thread;
+	size_t			status;
+	int				start_time;
+	size_t			id;
+	t_general*		general;
 }					t_philosopher;
 
 typedef struct			s_data {
 	t_general*			general;
 	t_philosopher**		philo;
-	size_t				index;
 	pthread_mutex_t*	mutex;
-	int					start_time;
 }						t_data;
 
 //parse

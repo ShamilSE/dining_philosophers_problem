@@ -2,7 +2,8 @@ NAME = a.out
 SRC = main.c utils/utils.c parser.c lifecycle.c init_data.c
 INC = philo.h
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
+# -fsanitize=address
 
 all: $(NAME)
 
