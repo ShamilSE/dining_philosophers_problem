@@ -9,12 +9,13 @@ void	eating_odd(t_philosopher* philo)
 	pthread_mutex_lock(philo->right_fork);
 	pthread_mutex_lock(&philo->general->talking);
 	printf("%ld %zu has taken right fork\n", get_current_time(philo->start_time), philo->id);;
-	pthread_mutex_unlock(&philo->general->talking);
 	printf("%ld %zu is eating\n", get_current_time(philo->start_time), philo->id);
-	// philo->status++;
+	pthread_mutex_unlock(&philo->general->talking);
 	philo->ate_count++;
-	philo->ate_last_time = get_current_time(0);
+	if (philo->general->hungry && philo->ate_count >= philo->general->hungry)
+		philo->is_full = 1;
 	usleep(philo->general->time_to_eat * 1000);
+	philo->ate_last_time = get_current_time(0);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
@@ -28,25 +29,23 @@ void	eating(t_philosopher* philo)
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(&philo->general->talking);
 	printf("%ld %zu has taken left fork\n", get_current_time(philo->start_time), philo->id);;
-	pthread_mutex_unlock(&philo->general->talking);
 	printf("%ld %zu is eating\n", get_current_time(philo->start_time), philo->id);
-	// philo->status++;
+	pthread_mutex_unlock(&philo->general->talking);
 	philo->ate_count++;
-	philo->ate_last_time = get_current_time(0);
+	if (philo->general->hungry && philo->ate_count >= philo->general->hungry)
+		philo->is_full = 1;
 	usleep(philo->general->time_to_eat * 1000);
+	philo->ate_last_time = get_current_time(0);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 }
 
 void	sleeping(t_philosopher* philo)
 {
-	// if (data->philo[data->index]->status != 1)
-	// 	return ;
-	usleep(philo->general->time_to_sleep * 1000);
-	// philo->status--; // increment status l_countr
 	pthread_mutex_lock(&philo->general->talking);
 	printf("%ld %zu sleeping\n", get_current_time(philo->start_time), philo->id);
 	pthread_mutex_unlock(&philo->general->talking);
+	usleep(philo->general->time_to_sleep * 1000);
 }
 
 void	thinking(t_philosopher* philo)
@@ -55,22 +54,6 @@ void	thinking(t_philosopher* philo)
 	printf("%ld %zu thinking\n", get_current_time(philo->start_time), philo->id);
 	pthread_mutex_unlock(&philo->general->talking);
 }
-
-// int		all_ate_check(t_philosopher* philo)
-// {
-// 	size_t	index;
-
-// 	index = 0;
-// 	if (!data->general->hungry)
-// 		return (0);
-// 	while (index < data->general->philo_num)
-// 	{
-// 		if (data->philo[index]->ate < data->general->hungry)
-// 			return (0);
-// 		index++;
-// 	}
-// 	return (1);
-// }
 
 void*	lifecycle(void*	philosopher)
 {
@@ -81,17 +64,8 @@ void*	lifecycle(void*	philosopher)
 			eating_odd(philo);
 		else
 			eating(philo);
-		// if (data->philo[data->index]->status == 1)
 		sleeping(philo);
-		// if (data->philo[data->index]->status == 2)
-		thinking(philosopher);
-		
-		// if (all_ate_check(philo))
-		// 	return (NULL);
+		thinking(philo);
 	}
 	return (NULL);
 }
-
-// 0 - need to eat stat
-// 1 - need to sleep stat
-// 2 - need to think stat

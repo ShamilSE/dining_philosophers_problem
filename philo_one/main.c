@@ -9,7 +9,7 @@ void	multithread(t_data* data)
 	{
 		data->philo[index]->start_time = get_current_time(0);
 		pthread_create(&data->philo[index]->thread, NULL, lifecycle, (void*)data->philo[index]);
-		if (index == 0)
+		// if (index == 0)
 			usleep(100);
 		index++;
 	}

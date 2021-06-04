@@ -3,11 +3,6 @@
 
 #define KRED  "\x1B[31m"
 #define KGRN  "\x1B[32m"
-#define KYEL  "\x1B[33m"
-#define KBLU  "\x1B[34m"
-#define KMAG  "\x1B[35m"
-#define KCYN  "\x1B[36m"
-#define KWHT  "\x1B[37m"
 #define RESET "\x1B[0m"
 
 #include "../ftlib/ftlib.h"
@@ -15,17 +10,19 @@
 #include <pthread.h>
 #include <sys/time.h>
 
-typedef struct	s_general {
-	size_t		philo_num;
-	long		time_to_die;
-	size_t		time_to_eat;
-	long		time_to_sleep;
-	long		hungry;
+typedef struct		s_general {
+	size_t			philo_num;
+	long			time_to_die;
+	size_t			time_to_eat;
+	long			time_to_sleep;
+	size_t			hungry;
 	pthread_mutex_t	talking;
-}				t_general;
+	int				stop;
+}					t_general;
 
 typedef struct		s_philosopher {
 	size_t			ate_count;
+	size_t			is_full;
 	long			ate_last_time;
 	pthread_mutex_t*			left_fork;
 	pthread_mutex_t*			right_fork;
