@@ -33,7 +33,8 @@ void	*lifecycle(void *philosopher)
 	pthread_t		die_check_thread;
 
 	philo = (t_philosopher *)philosopher;
-	pthread_create(&die_check_thread, NULL, die_check, (void *)philo);
+	if (pthread_create(&die_check_thread, NULL, die_check, (void *)philo) != 0)
+		return ((void *)FAIL_CODE);
 	pthread_detach(die_check_thread);
 	while (!philo->general->stop_flag)
 	{

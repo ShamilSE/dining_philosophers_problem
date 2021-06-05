@@ -1,6 +1,6 @@
 #include "philo.h"
 
-void	multithread(t_data *data)
+int		multithread(t_data *data)
 {
 	size_t	index;
 
@@ -8,19 +8,20 @@ void	multithread(t_data *data)
 	while (data->general->philo_num > index)
 	{
 		data->philo[index]->start_time = get_current_time(0);
-		pthread_create(&data->philo[index]->thread, NULL,
-			lifecycle, (void *)data->philo[index]);
+		if (pthread_create(&data->philo[index]->thread, NULL,
+			lifecycle, (void *)data->philo[index]) != 0)
+			return (FAIL_CODE);
 		usleep(100);
 		index++;
 	}
-	pthread_create(&data->ate_monitoring, NULL, ate_monitoring, (void *)data);
-	pthread_detach(data->ate_monitoring);
+	if (pthread_create(&data->ate_monitoring, NULL, ate_monitoring, (void *)data) != 0)
+		return (FAIL_CODE);
+	if (pthread_detach(data->ate_monitoring) != 0)
+		return (FAIL_CODE);
 	index = 0;
 	while (data->general->philo_num > index)
-	{
-		pthread_join(data->philo[index]->thread, NULL);
-		index++;
-	}
+		pthread_join(data->philo[index++]->thread, NULL);
+	return (SUCCESS_CODE);
 }
 
 int	main(int ac, char **av)
@@ -32,7 +33,8 @@ int	main(int ac, char **av)
 	if (ac == 5)
 		av[5] = NULL;
 	data = init_data(av);
-	multithread(data);
+	if (multithread(data) == 1)
+		return (FAIL_CODE);
 	cleaning(data);
-	return (0);
+	return (SUCCESS_CODE);
 }

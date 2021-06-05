@@ -5,6 +5,9 @@
 # define KGRN  "\x1B[32m"
 # define RESET "\x1B[0m"
 
+# define SUCCESS_CODE 0
+# define FAIL_CODE 1
+
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
@@ -24,7 +27,6 @@ typedef struct s_general {
 
 typedef struct s_philosopher {
 	size_t			ate_count;
-	size_t			is_full;
 	long			ate_last_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;

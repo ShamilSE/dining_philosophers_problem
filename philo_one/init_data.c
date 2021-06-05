@@ -11,7 +11,6 @@ t_philosopher	*init_philo(size_t index, t_data *data)
 	else
 		philo->right_fork = &data->mutex[index + 1];
 	philo->status = 0;
-	philo->is_full = 0;
 	philo->ate_last_time = get_current_time(0);
 	philo->id = index + 1;
 	philo->ate_count = 0;
