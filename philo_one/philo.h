@@ -53,5 +53,6 @@ void		*die_check(void *philosopher);
 int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
 void		log_philo(char *message, t_philosopher *philo);
+void		cleaning(t_data *data);
 
 #endif
