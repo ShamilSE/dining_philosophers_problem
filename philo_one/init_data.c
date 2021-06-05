@@ -6,6 +6,7 @@ void	init_philo(t_philosopher **philo, size_t index)
 	philo[index]->is_full = 0;
 	philo[index]->ate_last_time = get_current_time(0);
 	philo[index]->id = index + 1;
+	philo[index]->ate_count = 0;
 }
 
 t_data	*init_data(char **av)
@@ -20,7 +21,6 @@ t_data	*init_data(char **av)
 	philo = malloc(sizeof(t_philosopher*) * general->philo_num);
 	data->mutex = malloc(sizeof(pthread_mutex_t) * general->philo_num);
 	index = 0;
-	general->stop = 0;
 	while (index < general->philo_num)
 	{
 		philo[index] = malloc(sizeof(t_philosopher));

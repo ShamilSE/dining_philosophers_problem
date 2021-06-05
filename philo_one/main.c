@@ -9,18 +9,17 @@ void	multithread(t_data* data)
 	{
 		data->philo[index]->start_time = get_current_time(0);
 		pthread_create(&data->philo[index]->thread, NULL, lifecycle, (void*)data->philo[index]);
-		// if (index == 0)
-			usleep(100);
+		usleep(100);
 		index++;
 	}
-	pthread_create(&data->monitoring, NULL, monitoring, (void*)data);
+	pthread_create(&data->ate_monitoring, NULL, ate_monitoring, (void*)data);
 	index = 0;
 	while (data->general->philo_num > index)
 	{
 		pthread_join(data->philo[index]->thread, NULL);
 		index++;
 	}
-	pthread_detach(data->monitoring);
+	pthread_detach(data->ate_monitoring);
 }
 
 int	main(int ac, char** av)
