@@ -13,7 +13,6 @@ void	multithread(t_data *data)
 		usleep(100);
 		index++;
 	}
-
 	pthread_create(&data->ate_monitoring, NULL, ate_monitoring, (void *)data);
 	pthread_detach(data->ate_monitoring);
 	index = 0;
@@ -35,6 +34,5 @@ int	main(int ac, char **av)
 	data = init_data(av);
 	multithread(data);
 	cleaning(data);
-	while (1){}
 	return (0);
 }

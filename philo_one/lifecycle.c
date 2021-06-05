@@ -34,12 +34,12 @@ void	*lifecycle(void *philosopher)
 
 	philo = (t_philosopher *)philosopher;
 	pthread_create(&die_check_thread, NULL, die_check, (void *)philo);
+	pthread_detach(die_check_thread);
 	while (!philo->general->stop_flag)
 	{
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);
 	}
-	pthread_detach(die_check_thread);
 	return (NULL);
 }
