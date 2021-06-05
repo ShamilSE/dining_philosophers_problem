@@ -3,17 +3,10 @@
 void	eating(t_philosopher *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
-	pthread_mutex_lock(&philo->general->talking);
-	printf("%ld %zu has taken left fork\n",
-		get_current_time(philo->start_time), philo->id);
-	pthread_mutex_unlock(&philo->general->talking);
+	log_philo("has taken left fork", philo);
 	pthread_mutex_lock(philo->right_fork);
-	pthread_mutex_lock(&philo->general->talking);
-	printf("%ld %zu has taken right fork\n",
-		get_current_time(philo->start_time), philo->id);
-	printf("%ld %zu is eating\n",
-		get_current_time(philo->start_time), philo->id);
-	pthread_mutex_unlock(&philo->general->talking);
+	log_philo("has taken right fork", philo);
+	log_philo("is eating", philo);
 	philo->ate_count++;
 	if (philo->general->hungry && philo->ate_count == philo->general->hungry)
 		philo->general->fulls++;
@@ -25,17 +18,13 @@ void	eating(t_philosopher *philo)
 
 void	sleeping(t_philosopher *philo)
 {
-	pthread_mutex_lock(&philo->general->talking);
-	printf("%ld %zu sleeping\n", get_current_time(philo->start_time), philo->id);
-	pthread_mutex_unlock(&philo->general->talking);
+	log_philo("sleeping", philo);
 	usleep(philo->general->time_to_sleep * 1000);
 }
 
 void	thinking(t_philosopher *philo)
 {
-	pthread_mutex_lock(&philo->general->talking);
-	printf("%ld %zu thinking\n", get_current_time(philo->start_time), philo->id);
-	pthread_mutex_unlock(&philo->general->talking);
+	log_philo("thinking", philo);
 }
 
 void	*lifecycle(void *philosopher)
@@ -45,7 +34,7 @@ void	*lifecycle(void *philosopher)
 
 	philo = (t_philosopher *)philosopher;
 	pthread_create(&die_check_thread, NULL, die_check, (void *)philo);
-	while (1)
+	while (!philo->general->stop_flag)
 	{
 		eating(philo);
 		sleeping(philo);

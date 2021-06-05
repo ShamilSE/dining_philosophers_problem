@@ -12,6 +12,7 @@ t_general	*parser(char **av)
 	general->time_to_eat = ft_atoi(av[3]);
 	general->time_to_sleep = ft_atoi(av[4]);
 	general->fulls = 0;
+	general->stop_flag = 0;
 	if (av[5] != NULL)
 		general->hungry = ft_atoi(av[5]);
 	else

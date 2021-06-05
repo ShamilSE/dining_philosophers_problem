@@ -6,14 +6,16 @@ void	*ate_monitoring(void *_data)
 	t_data	*data;
 
 	data = (t_data *)_data;
-	while (1)
+	while (!data->general->stop_flag)
 	{
 		index = 0;
 		if (data->general->fulls == data->general->philo_num)
 		{
 			printf(KGRN "everybody ate %zu times\n"
 				RESET, data->general->hungry);
-			exit(0);
+			data->general->stop_flag = 1;
+			break ;
 		}
 	}
+	return (NULL);
 }

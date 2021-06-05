@@ -19,6 +19,7 @@ typedef struct s_general {
 	size_t			hungry;
 	pthread_mutex_t	talking;
 	size_t			fulls;
+	size_t			stop_flag;
 }					t_general;
 
 typedef struct s_philosopher {
@@ -51,5 +52,6 @@ long		get_current_time(long start_time);
 void		*die_check(void *philosopher);
 int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
+void		log_philo(char *message, t_philosopher *philo);
 
 #endif

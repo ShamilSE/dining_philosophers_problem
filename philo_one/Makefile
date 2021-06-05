@@ -1,6 +1,6 @@
 NAME = a.out
 SRC = main.c utils/utils.c parser.c lifecycle.c init_data.c monitoring.c die_check.c \
-	ft_atoi.c
+	utils/ft_atoi.c log_philo.c
 INC = philo.h
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
