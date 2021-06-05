@@ -1,5 +1,6 @@
 NAME = a.out
-SRC = main.c utils/utils.c parser.c lifecycle.c init_data.c monitoring.c die_check.c
+SRC = main.c utils/utils.c parser.c lifecycle.c init_data.c monitoring.c die_check.c \
+	ft_atoi.c
 INC = philo.h
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
@@ -7,14 +8,9 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 all: $(NAME)
 
 $(NAME): $(SRC) $(INC)
-	make -C ../ftlib
-	gcc $(CFLAGS) $(SRC) ../ftlib/ftlib.a -o $(NAME)
-
-clean:
-	make clean -C ../libft
+	gcc $(CFLAGS) $(SRC) -o $(NAME)
 
 fclean:
-	make fclean -C ../ftlib
 	rm -rf $(NAME)
 
 re: fclean all

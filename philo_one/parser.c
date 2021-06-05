@@ -1,8 +1,8 @@
 #include "philo.h"
 
-t_general*	parser(char** av)
+t_general	*parser(char **av)
 {
-	t_general*	general;
+	t_general	*general;
 
 	general = malloc(sizeof(t_general));
 	if (!is_args_digit(av))
@@ -16,5 +16,5 @@ t_general*	parser(char** av)
 		general->hungry = ft_atoi(av[5]);
 	else
 		general->hungry = 0;
-	return general;
+	return (general);
 }
