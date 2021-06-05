@@ -1,5 +1,5 @@
 NAME = a.out
-SRC = main.c utils/utils.c parser.c lifecycle.c init_data.c monitoring.c
+SRC = main.c utils/utils.c parser.c lifecycle.c init_data.c monitoring.c die_check.c
 INC = philo.h
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address

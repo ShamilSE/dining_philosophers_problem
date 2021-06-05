@@ -38,26 +38,17 @@ void	thinking(t_philosopher* philo)
 
 void*	lifecycle(void*	philosopher)
 {
-	t_philosopher* philo = (t_philosopher*)philosopher;
-	// pthread_create
+	t_philosopher*	philo;
+	pthread_t		die_check_thread;
+	
+	philo = (t_philosopher*)philosopher;
+	pthread_create(&die_check_thread, NULL, die_check, (void*)philo);
 	while (1)
 	{
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);
 	}
+	pthread_detach(die_check_thread);
 	return (NULL);
 }
-
-		// while (data->general->philo_num > index)
-		// {
-		// 	if ((get_current_time(data->philo[index]->ate_last_time)) >= data->general->time_to_die)
-		// 	{
-		// 		pthread_mutex_lock(&data->general->talking);
-		// 		printf(KRED "%ld %zu died\n" RESET, get_current_time(data->philo[index]->start_time), data->philo[index]->id);
-		// 		pthread_mutex_unlock(&data->general->talking);
-		// 		exit(0);
-		// 	}
-		// 	index++;
-		// }
-		// printf("fulls: %zu\n", data->general->fulls);

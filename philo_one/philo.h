@@ -47,5 +47,6 @@ t_data*		init_data(char** av);
 void*		lifecycle(void*	philosopher);
 void*		ate_monitoring(void* data);
 long		get_current_time(long start_time);
+void*		die_check(void *philosopher);
 
 #endif
