@@ -17,8 +17,10 @@ void	eating(t_philosopher *philo)
 	philo->ate_count++;
 	if (philo->general->hungry && philo->ate_count == philo->general->hungry)
 		philo->general->fulls++;
-	usleep(philo->general->time_to_eat * 1000);
+	pthread_mutex_lock(&philo->general->time);
 	philo->ate_last_time = get_current_time(0);
+	pthread_mutex_unlock(&philo->general->time);
+	usleep(philo->general->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 }

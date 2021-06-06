@@ -23,6 +23,7 @@ typedef struct s_general {
 	pthread_mutex_t	talking;
 	size_t			fulls;
 	size_t			stop_flag;
+	pthread_mutex_t	time;
 }					t_general;
 
 typedef struct s_philosopher {
