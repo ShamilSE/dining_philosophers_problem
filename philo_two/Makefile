@@ -18,13 +18,4 @@ re: fclean all
 test1:
 	./philoone 5 800 200 200
 
-test2:
-	./philoone 5 800 200 200 7
-
-test3:
-	./philoone 4 410 200 200
-
-test4:
-	./philoone 4 310 200 100
-
-.PHONY: all clean fclean re test1 test2 test3 test4
+.PHONY: all clean fclean re

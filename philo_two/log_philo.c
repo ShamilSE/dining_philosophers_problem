@@ -2,7 +2,8 @@
 
 void	log_philo(char *message, t_philosopher *philo)
 {
-	pthread_mutex_lock(&philo->general->talking);
+	// pthread_mutex_lock(&philo->general->talking);
+	if (!philo->general->stop_flag)
 		printf("%zu %zu %s\n", get_current_time(philo->start_time), philo->id, message);
-	pthread_mutex_unlock(&philo->general->talking);
+	// pthread_mutex_unlock(&philo->general->talking);
 }

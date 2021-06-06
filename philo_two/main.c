@@ -13,10 +13,13 @@ int		multithread(t_data *data)
 			return (FAIL_CODE);
 		index++;
 	}
-	if (pthread_create(&data->ate_monitoring, NULL, monitoring, (void *)data) != 0)
+	if (pthread_create(&data->ate_monitoring, NULL, ate_monitoring, (void *)data) != 0)
 		return (FAIL_CODE);
-	pthread_join(data->ate_monitoring, NULL);
+	if (pthread_detach(data->ate_monitoring) != 0)
+		return (FAIL_CODE);
 	index = 0;
+	while (data->general->philo_num > index)
+		pthread_join(data->philo[index++]->thread, NULL);
 	return (SUCCESS_CODE);
 }
 

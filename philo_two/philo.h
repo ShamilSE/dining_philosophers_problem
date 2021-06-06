@@ -10,6 +10,7 @@
 
 # include <stdio.h>
 # include <pthread.h>
+# include <semaphore.h>
 # include <sys/time.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -20,7 +21,7 @@ typedef struct s_general {
 	size_t			time_to_eat;
 	long			time_to_sleep;
 	size_t			hungry;
-	pthread_mutex_t	talking;
+	// pthread_mutex_t	talking;
 	size_t			fulls;
 	size_t			stop_flag;
 }					t_general;
@@ -28,8 +29,8 @@ typedef struct s_general {
 typedef struct s_philosopher {
 	size_t			ate_count;
 	long			ate_last_time;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	// pthread_mutex_t	*left_fork;
+	// pthread_mutex_t	*right_fork;
 	pthread_t		thread;
 	size_t			status;
 	long			start_time;
@@ -40,9 +41,8 @@ typedef struct s_philosopher {
 typedef struct s_data {
 	t_general			*general;
 	t_philosopher		**philo;
-	pthread_mutex_t		*mutex;
+	// pthread_mutex_t		*mutex;
 	pthread_t			ate_monitoring;
-	pthread_t			death_monitoring;
 }						t_data;
 
 int			is_args_digit(char **av);
@@ -50,8 +50,7 @@ void		ft_error(char *msg);
 t_general	*parser(char **av);
 t_data		*init_data(char **av);
 void		*lifecycle(void *philosopher);
-void		*monitoring(void *data);
-void		*is_dead(void *_data);
+void		*ate_monitoring(void *data);
 long		get_current_time(long start_time);
 void		*die_check(void *philosopher);
 int			ft_atoi(const char *str);
