@@ -11,7 +11,6 @@ int		multithread(t_data *data)
 		if (pthread_create(&data->philo[index]->thread, NULL,
 			lifecycle, (void *)data->philo[index]) != 0)
 			return (FAIL_CODE);
-		usleep(100);
 		index++;
 	}
 	if (pthread_create(&data->ate_monitoring, NULL, ate_monitoring, (void *)data) != 0)

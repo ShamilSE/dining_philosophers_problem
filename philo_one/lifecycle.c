@@ -3,9 +3,8 @@
 void	eating(t_philosopher *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
-	log_philo("has taken left fork", philo);
 	pthread_mutex_lock(philo->right_fork);
-	log_philo("has taken right fork", philo);
+	log_philo("has taken forks", philo);
 	log_philo("is eating", philo);
 	philo->ate_count++;
 	if (philo->general->hungry && philo->ate_count == philo->general->hungry)
