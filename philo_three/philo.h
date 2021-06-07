@@ -10,8 +10,10 @@
 
 # include <stdio.h>
 # include <pthread.h>
-# include <semaphore.h>
+# include <sys/types.h>
 # include <sys/time.h>
+# include <signal.h>
+# include <semaphore.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -26,12 +28,13 @@ typedef struct s_general {
 	sem_t			*time;
 	sem_t			*talking;
 	sem_t			*pair;
+	sem_t			*death;
+	sem_t			*full;
 }					t_general;
 
 typedef struct s_philosopher {
 	size_t			ate_count;
 	long			ate_last_time;
-	pthread_t		thread;
 	long			start_time;
 	size_t			id;
 	t_general		*general;
@@ -40,14 +43,16 @@ typedef struct s_philosopher {
 typedef struct s_data {
 	t_general			*general;
 	t_philosopher		**philo;
+	pid_t				*pid;
 }						t_data;
 
 int			is_args_digit(char **av);
 void		ft_error(char *msg);
 t_general	*parser(char **av);
 t_data		*init_data(char **av);
-void		*lifecycle(void *philosopher);
+void		*lifecycle(t_philosopher *philosopher);
 void		*monitoring(void *data);
+void		*ate_monitoring(void *_data);
 long		get_current_time(long start_time);
 int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
