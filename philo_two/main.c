@@ -1,22 +1,22 @@
 #include "philo.h"
 
-int		multithread(t_data *data)
+int	multithread(t_data *data)
 {
-	size_t	index;
+	size_t		index;
+	pthread_t	monitor;
 
 	index = 0;
 	while (data->general->philo_num > index)
 	{
 		data->philo[index]->start_time = get_current_time(0);
 		if (pthread_create(&data->philo[index]->thread, NULL,
-			lifecycle, (void *)data->philo[index]) != 0)
+				lifecycle, (void *)data->philo[index]) != 0)
 			return (FAIL_CODE);
 		index++;
 	}
-	if (pthread_create(&data->ate_monitoring, NULL, monitoring, (void *)data) != 0)
+	if (pthread_create(&monitor, NULL, monitoring, (void *)data) != 0)
 		return (FAIL_CODE);
-	pthread_join(data->ate_monitoring, NULL);
-	index = 0;
+	pthread_join(monitor, NULL);
 	return (SUCCESS_CODE);
 }
 
@@ -31,12 +31,6 @@ int	main(int ac, char **av)
 	data = init_data(av);
 	if (multithread(data) == 1)
 		return (FAIL_CODE);
-	// cleaning(data);
-	// sem_unlink("talking");
-	// sem_unlink("time");
-	// sem_unlink("forks");
-	// sem_close(data->general->forks);
-	// sem_close(data->general->time);
-	// sem_close(data->general->talking);
+	cleaning(data);
 	return (SUCCESS_CODE);
 }

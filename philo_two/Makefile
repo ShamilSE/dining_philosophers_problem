@@ -1,4 +1,4 @@
-NAME = philotwo
+NAME = philo_two
 SRC = main.c utils/utils.c parser.c lifecycle.c init_data.c monitoring.c \
 	utils/ft_atoi.c log_philo.c utils/cleaning.c
 INC = philo.h

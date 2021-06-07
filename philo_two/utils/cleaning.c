@@ -11,6 +11,5 @@ void	cleaning(t_data *data)
 		index++;
 	}
 	free(data->philo);
-	free(data->mutex);
 	free(data->general);
 }
