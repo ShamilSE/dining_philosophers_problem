@@ -10,6 +10,9 @@ all: $(NAME)
 $(NAME): $(SRC) $(INC)
 	gcc $(CFLAGS) $(SRC) -o $(NAME)
 
+clean:
+	echo "hello world"
+
 fclean:
 	rm -rf $(NAME)
 

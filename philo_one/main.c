@@ -1,6 +1,6 @@
 #include "philo.h"
 
-int		multithread(t_data *data)
+int	multithread(t_data *data)
 {
 	size_t	index;
 
@@ -9,11 +9,12 @@ int		multithread(t_data *data)
 	{
 		data->philo[index]->start_time = get_current_time(0);
 		if (pthread_create(&data->philo[index]->thread, NULL,
-			lifecycle, (void *)data->philo[index]) != 0)
+				lifecycle, (void *)data->philo[index]) != 0)
 			return (FAIL_CODE);
 		index++;
 	}
-	if (pthread_create(&data->ate_monitoring, NULL, monitoring, (void *)data) != 0)
+	if (pthread_create(&data->ate_monitoring,
+			NULL, monitoring, (void *)data) != 0)
 		return (FAIL_CODE);
 	pthread_join(data->ate_monitoring, NULL);
 	index = 0;

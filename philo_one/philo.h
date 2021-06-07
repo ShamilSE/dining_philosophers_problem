@@ -52,7 +52,6 @@ t_general	*parser(char **av);
 t_data		*init_data(char **av);
 void		*lifecycle(void *philosopher);
 void		*monitoring(void *data);
-void		*is_dead(void *_data);
 long		get_current_time(long start_time);
 void		*die_check(void *philosopher);
 int			ft_atoi(const char *str);

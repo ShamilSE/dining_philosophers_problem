@@ -1,28 +1,38 @@
 #include "philo.h"
 
-void	*is_dead(void *_data)
+static int	is_dead(t_data *data)
 {
 	size_t	index;
-	t_data	*data;
 
-	data = (t_data *)_data;
-	while (1)
+	index = 0;
+	while (index < data->general->philo_num)
 	{
-		index = 0;
-		while (index < data->general->philo_num)
+		pthread_mutex_lock(&data->general->time);
+		if ((get_current_time(data->philo[index]->ate_last_time))
+			> data->philo[index]->general->time_to_die + 3)
 		{
-			if ((get_current_time(data->philo[index]->ate_last_time))
-				>= data->philo[index]->general->time_to_die)
-				{
-				pthread_mutex_lock(&data->philo[index]->general->talking);
-				log_philo(KRED "died" RESET, data->philo[index]);
-				data->philo[index]->general->stop_flag = 1;
-				break ;
-			}
-			index++;
+			pthread_mutex_lock(&data->philo[index]->general->talking);
+			log_philo(KRED "died" RESET, data->philo[index]);
+			data->philo[index]->general->stop_flag = 1;
+			return (1);
 		}
+		pthread_mutex_unlock(&data->general->time);
+		index++;
 	}
-	return (NULL);
+	return (0);
+}
+
+static int	is_full(t_data *data)
+{
+	if (data->general->fulls == data->general->philo_num)
+	{
+		pthread_mutex_lock(&data->general->talking);
+		printf(KGRN "everybody ate %zu times\n"
+			RESET, data->general->hungry);
+		data->general->stop_flag = 1;
+		return (1);
+	}
+	return (0);
 }
 
 void	*monitoring(void *_data)
@@ -34,29 +44,11 @@ void	*monitoring(void *_data)
 	data = (t_data *)_data;
 	while (1)
 	{
-		if (data->general->fulls == data->general->philo_num)
-		{
-			pthread_mutex_lock(&data->general->talking);
-			printf(KGRN "everybody ate %zu times\n"
-				RESET, data->general->hungry);
-			data->general->stop_flag = 1;
-			break ;
-		}
+		if (is_full(data))
+			return (NULL);
 		index = 0;
-		while (index < data->general->philo_num)
-		{
-			pthread_mutex_lock(&data->general->time);
-			if ((get_current_time(data->philo[index]->ate_last_time))
-				> data->philo[index]->general->time_to_die + 3)
-				{
-				pthread_mutex_lock(&data->philo[index]->general->talking);
-				log_philo(KRED "died" RESET, data->philo[index]);
-				data->philo[index]->general->stop_flag = 1;
-				return (NULL);
-			}
-			pthread_mutex_unlock(&data->general->time);
-			index++;
-		}
+		if (is_dead(data))
+			return (NULL);
 		usleep(1000);
 	}
 	return (NULL);
