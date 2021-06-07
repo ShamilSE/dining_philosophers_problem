@@ -49,6 +49,7 @@ void	*monitoring(void *_data)
 		index = 0;
 		if (is_dead(data))
 			return (NULL);
+		usleep(100);
 	}
 	return (NULL);
 }

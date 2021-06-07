@@ -4,8 +4,8 @@ void	eating(t_philosopher *philo)
 {
 	if (philo->id & 1)
 	{
-		pthread_mutex_lock(philo->right_fork);
 		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(philo->right_fork);
 	}
 	else
 	{
@@ -18,7 +18,7 @@ void	eating(t_philosopher *philo)
 	if (philo->general->hungry && philo->ate_count == philo->general->hungry)
 		philo->general->fulls++;
 	pthread_mutex_lock(&philo->general->time);
-	philo->ate_last_time = get_current_time(0) + 100;
+	philo->ate_last_time = get_current_time(0);
 	pthread_mutex_unlock(&philo->general->time);
 	usleep(philo->general->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->right_fork);

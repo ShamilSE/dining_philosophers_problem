@@ -25,6 +25,7 @@ typedef struct s_general {
 	sem_t			*forks;
 	sem_t			*time;
 	sem_t			*talking;
+	sem_t			*pair;
 }					t_general;
 
 typedef struct s_philosopher {
