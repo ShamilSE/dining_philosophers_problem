@@ -9,7 +9,7 @@ static int	is_dead(t_data *data)
 	{
 		sem_wait(data->general->time);
 		if ((get_current_time(data->philo[index]->ate_last_time))
-			> data->philo[index]->general->time_to_die + 3)
+			> data->philo[index]->general->time_to_die)
 		{
 			sem_wait(data->general->talking);
 			printf(KRED "%zu %zu died\n" RESET,
@@ -49,7 +49,6 @@ void	*monitoring(void *_data)
 		index = 0;
 		if (is_dead(data))
 			return (NULL);
-		usleep(1000);
 	}
 	return (NULL);
 }

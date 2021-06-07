@@ -9,7 +9,7 @@ static int	is_dead(t_data *data)
 	{
 		pthread_mutex_lock(&data->general->time);
 		if ((get_current_time(data->philo[index]->ate_last_time))
-			> data->philo[index]->general->time_to_die + 3)
+			> data->philo[index]->general->time_to_die)
 		{
 			pthread_mutex_lock(&data->philo[index]->general->talking);
 			log_philo(KRED "died" RESET, data->philo[index]);
@@ -47,7 +47,7 @@ void	*monitoring(void *_data)
 		index = 0;
 		if (is_dead(data))
 			return (NULL);
-		usleep(1000);
+		usleep(100);
 	}
 	return (NULL);
 }
