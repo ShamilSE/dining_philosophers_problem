@@ -2,7 +2,8 @@
 
 int	multithread(t_data *data)
 {
-	size_t	index;
+	size_t		index;
+	pthread_t	monitor;
 
 	index = 0;
 	while (data->general->philo_num > index)
@@ -13,11 +14,10 @@ int	multithread(t_data *data)
 			return (FAIL_CODE);
 		index++;
 	}
-	if (pthread_create(&data->ate_monitoring,
+	if (pthread_create(&monitor,
 			NULL, monitoring, (void *)data) != 0)
 		return (FAIL_CODE);
-	pthread_join(data->ate_monitoring, NULL);
-	index = 0;
+	pthread_join(monitor, NULL);
 	return (SUCCESS_CODE);
 }
 

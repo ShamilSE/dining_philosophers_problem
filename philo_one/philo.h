@@ -22,7 +22,6 @@ typedef struct s_general {
 	size_t			hungry;
 	pthread_mutex_t	talking;
 	size_t			fulls;
-	size_t			stop_flag;
 	pthread_mutex_t	time;
 }					t_general;
 
@@ -32,7 +31,6 @@ typedef struct s_philosopher {
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_t		thread;
-	size_t			status;
 	long			start_time;
 	size_t			id;
 	t_general		*general;
@@ -42,8 +40,6 @@ typedef struct s_data {
 	t_general			*general;
 	t_philosopher		**philo;
 	pthread_mutex_t		*mutex;
-	pthread_t			ate_monitoring;
-	pthread_t			death_monitoring;
 }						t_data;
 
 int			is_args_digit(char **av);
