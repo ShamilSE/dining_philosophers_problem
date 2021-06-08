@@ -1,6 +1,6 @@
 NAME = philo_three
 SRC = main.c utils/utils.c parser.c lifecycle.c init_data.c monitoring.c \
-	utils/ft_atoi.c log_philo.c utils/cleaning.c ate_monitoring.c
+	utils/ft_atoi.c log_philo.c utils/cleaning.c ate_monitoring.c 
 INC = philo.h
 
 CFLAGS = -Wall -Wextra -Werror

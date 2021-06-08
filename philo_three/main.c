@@ -3,15 +3,14 @@
 int	multithread(t_data *data)
 {
 	size_t		index;
-	
 	// pthread_t	ate_monitor;
+	
 	index = 0;
 	while (data->general->philo_num > index)
 	{
 		data->philo[index]->start_time = get_current_time(0);
-		printf("index %zu hello\n", index);
 		data->pid[index] = fork();
-		if (data->pid == 0)
+		if (data->pid[index] == 0)
 		{
 			lifecycle(data->philo[index]);
 		}
