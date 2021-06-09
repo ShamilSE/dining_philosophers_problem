@@ -17,7 +17,7 @@ void	eating(t_philosopher *philo)
 	philo->ate_last_time = get_current_time(0);
 	sem_post(philo->general->time);
 	usleep(philo->general->time_to_eat * 1000);
-	log_philo("eated", philo);
+	log_philo("ate", philo);
 	sem_post(philo->general->forks);
 	sem_post(philo->general->forks);
 	log_philo("has dropped forks", philo);

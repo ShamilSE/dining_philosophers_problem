@@ -16,5 +16,6 @@ void	*ate_monitoring(void *_data)
 	printf(KGRN "everybody ate %zu times\n"
 		RESET, data->general->hungry);
 	sem_post(data->general->death);
+	exit(2);
 	return (0);
 }

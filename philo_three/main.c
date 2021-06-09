@@ -3,22 +3,24 @@
 int	multithread(t_data *data)
 {
 	size_t		index;
-	// pthread_t	ate_monitor;
-	
+	int		 	stat;
+	pthread_t	ate_monitor;
+
 	index = 0;
 	while (data->general->philo_num > index)
 	{
 		data->philo[index]->start_time = get_current_time(0);
 		data->pid[index] = fork();
 		if (data->pid[index] == 0)
-		{
 			lifecycle(data->philo[index]);
-		}
 		index++;
 	}
-	// pthread_create(&ate_monitor, NULL, ate_monitoring, (void *)data);
-	// pthread_detach(ate_monitor);
-	sem_wait(data->general->death);
+	pthread_create(&ate_monitor, NULL, ate_monitoring, (void *)data);
+	pthread_detach(ate_monitor);
+	waitpid(0, &stat, 0);
+	stat = WEXITSTATUS(stat);
+	if (stat)
+		exit(stat);
 	return (SUCCESS_CODE);
 }
 
