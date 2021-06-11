@@ -5,11 +5,11 @@ t_philosopher	*init_philo(size_t index, t_data *data)
 	t_philosopher	*philo;
 
 	philo = malloc(sizeof(t_philosopher));
-	philo->right_fork = &data->mutex[index];
+	philo->left_fork = &data->mutex[index];
 	if (data->general->philo_num == index + 1)
-		philo->left_fork = &data->mutex[0];
+		philo->right_fork = &data->mutex[0];
 	else
-		philo->left_fork = &data->mutex[index + 1];
+		philo->right_fork = &data->mutex[index + 1];
 	philo->ate_last_time = get_current_time(0);
 	philo->id = index + 1;
 	philo->ate_count = 0;
