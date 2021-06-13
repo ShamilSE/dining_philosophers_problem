@@ -2,25 +2,19 @@
 
 void	eating(t_philosopher *philo)
 {
-	sem_wait(philo->general->pair);
-	sem_wait(philo->general->forks);
-	sem_wait(philo->general->forks);
-	sem_post(philo->general->pair);
+	pthread_mutex_lock(philo->left_fork);
+	pthread_mutex_lock(philo->right_fork);
 	log_philo("has taken forks", philo);
 	log_philo("is eating", philo);
 	philo->ate_count++;
 	if (philo->general->hungry && philo->ate_count == philo->general->hungry)
-	{
-		sem_post(philo->general->full);
-	}
-	sem_wait(philo->general->time);
+		philo->general->fulls++;
+	pthread_mutex_lock(&philo->general->time);
 	philo->ate_last_time = get_current_time(0);
-	sem_post(philo->general->time);
+	pthread_mutex_unlock(&philo->general->time);
 	usleep(philo->general->time_to_eat * 1000);
-	log_philo("ate", philo);
-	sem_post(philo->general->forks);
-	sem_post(philo->general->forks);
-	log_philo("has dropped forks", philo);
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
 }
 
 void	sleeping(t_philosopher *philo)
@@ -34,13 +28,12 @@ void	thinking(t_philosopher *philo)
 	log_philo("thinking", philo);
 }
 
-void	*lifecycle(t_philosopher *philo)
+void	*lifecycle(void *philosopher)
 {
-	pthread_t	monitor;
+	t_philosopher	*philo;
 
-	pthread_create(&monitor, NULL, monitoring, (void *)philo);
-	pthread_detach(monitor);
-	while (1)
+	philo = (t_philosopher *)philosopher;
+	while (philo->general->everybody_alive)
 	{
 		eating(philo);
 		sleeping(philo);

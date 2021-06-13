@@ -7,6 +7,7 @@ void	cleaning(t_data *data)
 	index = 0;
 	while (data->general->philo_num > index)
 	{
+		pthread_join(data->philo[index]->thread, NULL);
 		pthread_mutex_destroy(&data->mutex[index]);
 		free(data->philo[index]);
 		index++;

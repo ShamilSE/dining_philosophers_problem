@@ -1,6 +1,6 @@
-NAME = philo_three
+NAME = philo
 SRC = main.c utils/utils.c parser.c lifecycle.c init_data.c monitoring.c \
-	utils/ft_atoi.c log_philo.c utils/cleaning.c ate_monitoring.c 
+	utils/ft_atoi.c log_philo.c utils/cleaning.c
 INC = philo.h
 
 CFLAGS = -Wall -Wextra -Werror
@@ -9,6 +9,9 @@ all: $(NAME)
 
 $(NAME): $(SRC) $(INC)
 	gcc $(CFLAGS) $(SRC) -o $(NAME)
+
+clean:
+	echo "hello world"
 
 fclean:
 	rm -rf $(NAME)

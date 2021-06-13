@@ -12,9 +12,11 @@ int	multithread(t_data *data)
 		if (pthread_create(&data->philo[index]->thread, NULL,
 				lifecycle, (void *)data->philo[index]) != 0)
 			return (FAIL_CODE);
+		usleep(100);
 		index++;
 	}
-	if (pthread_create(&monitor, NULL, monitoring, (void *)data) != 0)
+	if (pthread_create(&monitor,
+			NULL, monitoring, (void *)data) != 0)
 		return (FAIL_CODE);
 	pthread_join(monitor, NULL);
 	return (SUCCESS_CODE);
@@ -31,6 +33,7 @@ int	main(int ac, char **av)
 	data = init_data(av);
 	if (multithread(data) == 1)
 		return (FAIL_CODE);
+	usleep(500);
 	cleaning(data);
 	return (SUCCESS_CODE);
 }
